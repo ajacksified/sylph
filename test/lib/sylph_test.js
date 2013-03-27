@@ -9,8 +9,8 @@ chai.use(sinonChai);
 require('sinon-mocha').enhance(sinon);
 
 describe('sylph', function(){
-  var testJPEGPath = __dirname + '/../resources/house.jpg',
-      testPNGPath = __dirname + '/../resources/wishlists.png',
+  var testJPEGPath = __dirname + '/../resources/pigeons.jpg',
+      testPNGPath = __dirname + '/../resources/scribble.png',
       testJPEGStream = fs.createReadStream(testJPEGPath),
       testJPEGFile = fs.readFileSync(testJPEGPath),
       testPNGStream = fs.createReadStream(testPNGPath),
@@ -55,13 +55,6 @@ describe('sylph', function(){
       });
     });
 
-    it('should error if invalid file type is specified', function(done){
-      sylph.smush(testJPEGStream, "coffee", function(err, callback){
-        expect(err).to.equal("Invalid file type specified! Passed in: coffee");
-        done();
-      });
-    });
-
     it('should error if unsupported file type is specified', function(done){
       sylph.smush(testJPEGStream, "image/tiff", function(err, callback){
         expect(err).to.equal("Unsupported file type specified! Passed in: image/tiff");
@@ -85,7 +78,7 @@ describe('sylph', function(){
 
     it('should accept an unoptimized png and return an optimized png', function(done){
       sylph.detectType(testPNGPath, function(err, type){
-        sylph.smush(testPNGStream, type, function(err, result){
+        sylph.smush(testPNGStream, 'png', function(err, result){
           expect(err).to.be.undefined
 
           var optimizedLength = result.toString().length;

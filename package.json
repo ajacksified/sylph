@@ -6,7 +6,7 @@
   "main": "index",
   "readmeFilename": "README.md",
   "scripts": {
-    "test": "mocha -R spec --recursive test"
+    "test": "mocha -R spec --recursive -t 5000 test"
   },
   "respository": {
     "type": "git",
