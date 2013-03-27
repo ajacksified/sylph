@@ -25,7 +25,6 @@ describe('sylph', function(){
     it('should expose all its goody bits', function(){
       expect(sylph.PNGCrush).not.to.be.undefined;
       expect(sylph.JPEGTran).not.to.be.undefined;
-      expect(sylph.mime).not.to.be.undefined;
       expect(sylph.imagemagick).not.to.be.undefined;
       expect(sylph.pngCrusher).not.to.be.undefined;
       expect(sylph.jpgTranslator).not.to.be.undefined;
@@ -36,7 +35,7 @@ describe('sylph', function(){
   describe('image smushing', function(){
     it('should accept an image and properly detect the type', function(done){
       sylph.detectType(testJPEGPath, function(err, type){
-        expect(type).to.match(/jp(e?)g/);
+        expect(type).to.match(/jp(e?)g/i);
         done();
       });
     });

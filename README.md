@@ -36,9 +36,8 @@ Dependencies
 
 * Imagemagick
 * jpegtran (can be installed through npm)
-* libmagic
 
-OSX: `brew install imagemagick libmagic pngcrush`
+OSX: `brew install imagemagick pngcrush`
 
 Debians: `sudo apt-get install imagemagick pngcrush`
 
