@@ -16,8 +16,8 @@ var sylph = new Sylph();
 var imagePath = './resources/image.jpg',
     imageStream = fs.createReadStream(imagePath);
 
-sylph.detectType(imagePath, function(err, type){
-  sylph.smush(imageStream, type, function(err, image){
+sylph.features(imagePath, function(err, features){
+  sylph.smush(imageStream, features.format, function(err, image){
     fs.writeFile(imagePath.replace(/jpg/, 'min.jpg'), image);
   });
 });

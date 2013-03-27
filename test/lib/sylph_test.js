@@ -33,9 +33,9 @@ describe('sylph', function(){
   });
 
   describe('image smushing', function(){
-    it('should accept an image and properly detect the type', function(done){
-      sylph.detectType(testJPEGPath, function(err, type){
-        expect(type).to.match(/jp(e?)g/i);
+    it('should accept an image and properly detect the features, such as format', function(done){
+      sylph.features(testJPEGPath, function(err, features){
+        expect(features.format).to.match(/jp(e?)g/i);
         done();
       });
     });
@@ -62,8 +62,8 @@ describe('sylph', function(){
     });
 
     it('should accept an unoptimized jpeg and return an optimized jpeg', function(done){
-      sylph.detectType(testJPEGPath, function(err, type){
-        sylph.smush(testJPEGStream, type, function(err, result){
+      sylph.features(testJPEGPath, function(err, features){
+        sylph.smush(testJPEGStream, features.format, function(err, result){
           expect(err).to.be.undefined
 
           var optimizedLength = result.toString().length;
@@ -76,8 +76,8 @@ describe('sylph', function(){
     });
 
     it('should accept an unoptimized png and return an optimized png', function(done){
-      sylph.detectType(testPNGPath, function(err, type){
-        sylph.smush(testPNGStream, 'png', function(err, result){
+      sylph.features(testPNGPath, function(err, features){
+        sylph.smush(testPNGStream, features.format, function(err, result){
           expect(err).to.be.undefined
 
           var optimizedLength = result.toString().length;
