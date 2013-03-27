@@ -16,9 +16,13 @@ var sylph = new Sylph();
 var imagePath = './resources/image.jpg',
     image = fs.readFileSync(imagePath);
 
+// let's scale an image to 200x200 and then optimize it
+
 sylph.features(image, function(err, features){
-  sylph.smush(image, features.format, function(err, image){
-    fs.writeFile(imagePath.replace(/jpg/, 'min.jpg'), image);
+  sylph.scale(image, { height: 200 }, function(err, image) {
+    sylph.smush(image, features.format, function(err, image){
+      fs.writeFile(imagePath.replace(/jpg/, 'min.jpg'), image);
+    });
   });
 });
 
