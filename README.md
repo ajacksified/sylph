@@ -14,10 +14,10 @@ var fs = require('fs'),
 var sylph = new Sylph();
 
 var imagePath = './resources/image.jpg',
-    imageStream = fs.createReadStream(imagePath);
+    image = fs.readFileSync(imagePath);
 
-sylph.features(imagePath, function(err, features){
-  sylph.smush(imageStream, features.format, function(err, image){
+sylph.features(image, function(err, features){
+  sylph.smush(image, features.format, function(err, image){
     fs.writeFile(imagePath.replace(/jpg/, 'min.jpg'), image);
   });
 });
@@ -28,7 +28,7 @@ Features
 --------
 
 * Optimize images
-* Build requested image sizes [planned]
+* Build requested image sizes
 * Build sprite sheet (image1&image2) [planned]
 
 Dependencies

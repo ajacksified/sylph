@@ -11,9 +11,7 @@ require('sinon-mocha').enhance(sinon);
 describe('sylph', function(){
   var testJPEGPath = __dirname + '/../resources/pigeons.jpg',
       testPNGPath = __dirname + '/../resources/scribble.png',
-      testJPEGStream = fs.createReadStream(testJPEGPath),
       testJPEGFile = fs.readFileSync(testJPEGPath),
-      testPNGStream = fs.createReadStream(testPNGPath),
       testPNGFile = fs.readFileSync(testPNGPath),
       sylph = new Sylph();
 
@@ -34,7 +32,7 @@ describe('sylph', function(){
 
   describe('image smushing', function(){
     it('should accept an image and properly detect the features, such as format', function(done){
-      sylph.features(testJPEGPath, function(err, features){
+      sylph.features(testJPEGFile, function(err, features){
         expect(features.format).to.match(/jp(e?)g/i);
         done();
       });
@@ -48,22 +46,22 @@ describe('sylph', function(){
     })
 
     it('should error if no file type is specified', function(done){
-      sylph.smush(testJPEGStream, undefined, function(err, callback){
+      sylph.smush(testJPEGFile, undefined, function(err, callback){
         expect(err).to.equal("No file type specified!");
         done();
       });
     });
 
     it('should error if unsupported file type is specified', function(done){
-      sylph.smush(testJPEGStream, "image/tiff", function(err, callback){
+      sylph.smush(testJPEGFile, "image/tiff", function(err, callback){
         expect(err).to.equal("Unsupported file type specified! Passed in: image/tiff");
         done();
       });
     });
 
     it('should accept an unoptimized jpeg and return an optimized jpeg', function(done){
-      sylph.features(testJPEGPath, function(err, features){
-        sylph.smush(testJPEGStream, features.format, function(err, result){
+      sylph.features(testJPEGFile, function(err, features){
+        sylph.smush(testJPEGFile, features.format, function(err, result){
           expect(err).to.be.undefined
 
           var optimizedLength = result.toString().length;
@@ -76,14 +74,28 @@ describe('sylph', function(){
     });
 
     it('should accept an unoptimized png and return an optimized png', function(done){
-      sylph.features(testPNGPath, function(err, features){
-        sylph.smush(testPNGStream, features.format, function(err, result){
+      sylph.features(testPNGFile, function(err, features){
+        sylph.smush(testPNGFile, features.format, function(err, result){
           expect(err).to.be.undefined
 
           var optimizedLength = result.toString().length;
           var oldLength = testPNGFile.length;
 
           expect(optimizedLength).to.be.below(oldLength);
+          done();
+        });
+      });
+    });
+  });
+
+  describe('image scaling', function(){
+    it('should accept a jpeg and scale it', function(done){
+      sylph.scale(testJPEGFile, { width: 50 }, function(err, result){
+        expect(err).to.not.exist
+
+        sylph.features(result, function(err, features){
+          expect(features.height).to.equal(50)
+          expect(features.width).to.equal(50)
           done();
         });
       });
