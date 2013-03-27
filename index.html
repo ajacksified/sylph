@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Sylph by ajacksified</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Sylph</h1>
+        <p>Image processing: optimization, cropping/resizing, and spriting</p>
+
+        <p class="view"><a href="https://github.com/ajacksified/sylph">View the Project on GitHub <small>ajacksified/sylph</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/ajacksified/sylph/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/ajacksified/sylph/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/ajacksified/sylph">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Sylph</h1>
+
+<p>Image optimization, processing, and spriting library.</p>
+
+<h2>Example</h2>
+
+<div class="highlight"><pre>
+<span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">),</span>
+    <span class="nx">Sylph</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'sylph'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">sylph</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Sylph</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">imagePath</span> <span class="o">=</span> <span class="s1">'./resources/image.jpg'</span><span class="p">,</span>
+    <span class="nx">imageStream</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="nx">imagePath</span><span class="p">);</span>
+
+<span class="nx">sylph</span><span class="p">.</span><span class="nx">detectType</span><span class="p">(</span><span class="nx">imagePath</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">type</span><span class="p">){</span>
+  <span class="nx">sylph</span><span class="p">.</span><span class="nx">smush</span><span class="p">(</span><span class="nx">imageStream</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">image</span><span class="p">){</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">imagePath</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/jpg/</span><span class="p">,</span> <span class="s1">'min.jpg'</span><span class="p">),</span> <span class="nx">image</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+</pre></div>
+
+<h2>Features</h2>
+
+<ul>
+<li>Optimize images</li>
+<li>Build requested image sizes [planned]</li>
+<li>Build sprite sheet (image1&amp;image2) [planned]</li>
+</ul><h2>Dependencies</h2>
+
+<ul>
+<li>Imagemagick</li>
+<li>jpegtran (can be installed through npm)</li>
+<li>libmagic</li>
+</ul><p>OSX: <code>brew install imagemagick libmagic pngcrush</code></p>
+
+<p>Debians: <code>sudo apt-get install imagemagick pngcrush</code></p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/ajacksified">ajacksified</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
