@@ -1,0 +1,44 @@
+{
+  "name": "sylph",
+  "version": "0.0.1",
+  "description": "Image processing service",
+  "author": "Jack Lawson <ajacksified@gmail.com>",
+  "main": "index",
+  "readmeFilename": "README.md",
+  "scripts": {
+    "test": "mocha -R spec --recursive test"
+  },
+  "respository": {
+    "type": "git",
+    "url": "git://github.com/ajacksified/sylph.git"
+  },
+  "dependencies": {
+    "imagemagick": "0.1.3",
+    "pngcrush": "0.0.3",
+    "jpegtran-bin": "0.1.3",
+    "jpegtran": "0.0.4",
+    "mime-magic": "0.4.3"
+  },
+  "devDependencies": {
+    "mocha": "1.7.x",
+    "chai": "1.4.x",
+    "sinon": "1.5.x",
+    "sinon-mocha": "0.0.3",
+    "sinon-chai": "2.3.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/mit-license.php"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "keywords": [
+    "image",
+    "sprite",
+    "spritesheet"
+  ]
+}
+
