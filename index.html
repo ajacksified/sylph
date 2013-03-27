@@ -1,78 +1,278 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Sylph by ajacksified</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Sylph</h1>
-        <p>Image processing: optimization, cropping/resizing, and spriting</p>
-
-        <p class="view"><a href="https://github.com/ajacksified/sylph">View the Project on GitHub <small>ajacksified/sylph</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/ajacksified/sylph/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/ajacksified/sylph/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/ajacksified/sylph">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>Sylph</h1>
-
-<p>Image optimization, processing, and spriting library.</p>
-
-<h2>Example</h2>
-
-<div class="highlight"><pre>
-<span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">),</span>
-    <span class="nx">Sylph</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'sylph'</span><span class="p">);</span>
-
-<span class="kd">var</span> <span class="nx">sylph</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Sylph</span><span class="p">();</span>
-
-<span class="kd">var</span> <span class="nx">imagePath</span> <span class="o">=</span> <span class="s1">'./resources/image.jpg'</span><span class="p">,</span>
-    <span class="nx">imageStream</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="nx">imagePath</span><span class="p">);</span>
-
-<span class="nx">sylph</span><span class="p">.</span><span class="nx">detectType</span><span class="p">(</span><span class="nx">imagePath</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">type</span><span class="p">){</span>
-  <span class="nx">sylph</span><span class="p">.</span><span class="nx">smush</span><span class="p">(</span><span class="nx">imageStream</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">image</span><span class="p">){</span>
-    <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">imagePath</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/jpg/</span><span class="p">,</span> <span class="s1">'min.jpg'</span><span class="p">),</span> <span class="nx">image</span><span class="p">);</span>
-  <span class="p">});</span>
-<span class="p">});</span>
-
-</pre></div>
-
-<h2>Features</h2>
-
-<ul>
-<li>Optimize images</li>
-<li>Build requested image sizes [planned]</li>
-<li>Build sprite sheet (image1&amp;image2) [planned]</li>
-</ul><h2>Dependencies</h2>
-
-<ul>
-<li>Imagemagick</li>
-<li>jpegtran (can be installed through npm)</li>
-<li>libmagic</li>
-</ul><p>OSX: <code>brew install imagemagick libmagic pngcrush</code></p>
-
-<p>Debians: <code>sudo apt-get install imagemagick pngcrush</code></p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/ajacksified">ajacksified</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
+<head>
+  <title>sylph.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
     
-  </body>
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>sylph.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p><strong>sylph</strong> is a javascript library which aims to wrap many common image
+processing functions in simple API calls. It works together with such tools
+as pngcrush and jpegtran to provide image optimization with sane defaults,
+imagemagick for image manipulation (such as scaling and cropping), and
+mmmagic to look up information about specific files. This library is mostly
+a wrapper to each of these tools, and their lower-level API is exposed, so
+you&#39;re not constrained to what sylph provides.</p>
+<p>sylph also provides image spriting, which will allow you to build horizontal
+image sprites for use in web applications. In theory, you&#39;ll use it together
+with a queuing system, as image processing can be somewhat CPU-time
+intensive.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>!<span class="keyword">function</span>(global, module, require){
+  <span class="string">'use strict'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>sylph requires a few npm packages that themselves are simple wrappers
+around the installed utilities, such as pngcrush and jpegtran.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> fs = require(<span class="string">'fs'</span>),
+      Stream = require(<span class="string">'stream'</span>),
+      PNGCrush = require(<span class="string">'pngcrush'</span>),
+      JPEGTran = require(<span class="string">'jpegtran'</span>),
+      mime = require(<span class="string">'mime-magic'</span>),
+      imagemagick = require(<span class="string">'imagemagick'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>sylph is exposed as a constructor so that you have the opportunity to
+override the defaults used to generate the PNG and JPEG optimizers.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> Sylph = <span class="keyword">function</span>(options){
+    <span class="keyword">if</span>(!(<span class="keyword">this</span> <span class="keyword">instanceof</span> Sylph)) {
+      <span class="keyword">return</span> <span class="keyword">new</span> Sylph(options);
+    }
+
+    options = options || {};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Expose these publicly in case you want to use the raw APIs for 
+pngcrush, jpegtran, mime-magic (mmmagic), or imagemagick.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">this</span>.PNGCrush = PNGCrush;
+    <span class="keyword">this</span>.JPEGTran = JPEGTran;
+    <span class="keyword">this</span>.mime = mime;
+    <span class="keyword">this</span>.imagemagick = imagemagick;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Similarly, expose these in case you want to override and set up your own
+stream pipes. You can also add your own to the Sylph prototype.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">this</span>.pngCrusher = <span class="keyword">new</span> <span class="keyword">this</span>.PNGCrush(options.pngCrushInit || [
+      <span class="string">'-rem'</span>, <span class="string">'alla'</span>,
+      <span class="string">'-fix'</span>
+    ]);
+
+    <span class="keyword">this</span>.jpgTranslator = <span class="keyword">new</span> <span class="keyword">this</span>.JPEGTran(options.jpgTranInit || [
+      <span class="string">'-progressive'</span>,
+      <span class="string">'-optimize'</span>
+    ]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Allow overriding the regex for types, or to change the transform used
+for a given type. If you add your own transform, you can add it to
+the list for your specific instance or pass it in as an option.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">this</span>.imageTypes = options.imageTypes || [
+      { fn: <span class="string">'smushJPG'</span>, regex: <span class="regexp">/jp(e?)g/</span> },
+      { fn: <span class="string">'smushPNG'</span>, regex: <span class="regexp">/png/</span> }
+    ];
+  };
+
+  Sylph.prototype = {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Stream a jpg file stream through jpegtran and output the result as a
+file buffer.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    smushJPG: <span class="keyword">function</span>(fileStream, callback){
+      <span class="keyword">var</span> chunks = [];
+
+      fileStream.pipe(<span class="keyword">this</span>.jpgTranslator)
+                .on(<span class="string">'data'</span>, <span class="keyword">function</span>(chunk){
+                  chunks.push(chunk);
+                })
+                .on(<span class="string">'end'</span>, <span class="keyword">function</span>(){
+                  <span class="keyword">var</span> resultBuffer = Buffer.concat(chunks);
+                  <span class="keyword">return</span> callback(<span class="literal">undefined</span>, resultBuffer);
+                })
+                .on(<span class="string">'error'</span>, callback);
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Stream a png file stream through pngcrush and output the result as a
+file buffer.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    smushPNG: <span class="keyword">function</span>(fileStream, callback){
+      <span class="keyword">var</span> chunks = [];
+
+      fileStream.pipe(<span class="keyword">this</span>.pngCrusher)
+                .on(<span class="string">'data'</span>, <span class="keyword">function</span>(chunk){
+                  chunks.push(chunk);
+                })
+                .on(<span class="string">'end'</span>, <span class="keyword">function</span>(){
+                  <span class="keyword">var</span> resultBuffer = Buffer.concat(chunks);
+                  <span class="keyword">return</span> callback(<span class="literal">undefined</span>, resultBuffer);
+                })
+                .on(<span class="string">'error'</span>, callback);
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Allow just calling &quot;smush&quot; instead of implementing switching between
+types manually. This won&#39;t touch the filesystem, so we can&#39;t load mime
+data from the filesystem; you can call <code>sylph.detectType()</code> first to get
+the file type.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    smush: <span class="keyword">function</span>(fileStream, fileType, callback){
+      <span class="keyword">if</span>(!fileStream){
+        <span class="keyword">return</span> callback(<span class="string">'No file specified!'</span>);
+      }<span class="keyword">else</span> <span class="keyword">if</span>(!fileType){
+        <span class="keyword">return</span> callback(<span class="string">'No file type specified!'</span>);
+      }
+
+      <span class="keyword">var</span> sylph = <span class="keyword">this</span>,
+          called = <span class="literal">false</span>;
+
+      <span class="keyword">this</span>.imageTypes.forEach(<span class="keyword">function</span>(fn){
+        <span class="keyword">if</span>(fn.regex.test(fileType)){
+          called = <span class="literal">true</span>;
+          <span class="keyword">return</span> sylph[fn.fn](fileStream, callback);
+        }
+      });
+
+      <span class="keyword">if</span>(!called){
+        <span class="keyword">return</span> callback(<span class="string">'Unsupported file type specified! Passed in: '</span> + fileType);
+      }
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Super simple wrapper around mmmagic to help out with loading file types
+to, for example, call <code>smush()</code>. This will touch the file system.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    detectType: <span class="keyword">function</span>(filePath, callback){
+      mime(filePath, <span class="keyword">function</span>(err, type){
+        <span class="keyword">return</span> callback(err, type);
+      });
+    }
+  };
+
+  <span class="keyword">return</span> module.exports = Sylph;
+}(<span class="keyword">this</span>, module, require);</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
 </html>
