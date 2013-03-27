@@ -1,4 +1,4 @@
-var sylph = require('../../lib/sylph'),
+var Sylph = require('../../lib/sylph'),
     sinon = require('sinon'),
     chai = require('chai'),
     expect = require('chai').expect,
@@ -14,17 +14,28 @@ describe('sylph', function(){
       testJPEGStream = fs.createReadStream(testJPEGPath),
       testJPEGFile = fs.readFileSync(testJPEGPath),
       testPNGStream = fs.createReadStream(testPNGPath),
-      testPNGFile = fs.readFileSync(testPNGPath);
+      testPNGFile = fs.readFileSync(testPNGPath),
+      sylph = new Sylph();
 
   describe('module loading', function(){
     it('should return a module', function(){
       expect(sylph).not.to.be.undefined;
     });
+
+    it('should expose all its goody bits', function(){
+      expect(sylph.PNGCrush).not.to.be.undefined;
+      expect(sylph.JPEGTran).not.to.be.undefined;
+      expect(sylph.mime).not.to.be.undefined;
+      expect(sylph.imagemagick).not.to.be.undefined;
+      expect(sylph.pngCrusher).not.to.be.undefined;
+      expect(sylph.jpgTranslator).not.to.be.undefined;
+      expect(sylph.imageTypes).not.to.be.undefined;
+    });
   });
 
   describe('image smushing', function(){
     it('should accept an image and properly detect the type', function(done){
-      sylph.detect(testJPEGPath, function(err, type){
+      sylph.detectType(testJPEGPath, function(err, type){
         expect(type).to.match(/jp(e?)g/);
         done();
       });
@@ -59,7 +70,7 @@ describe('sylph', function(){
     });
 
     it('should accept an unoptimized jpeg and return an optimized jpeg', function(done){
-      sylph.detect(testJPEGPath, function(err, type){
+      sylph.detectType(testJPEGPath, function(err, type){
         sylph.smush(testJPEGStream, type, function(err, result){
           expect(err).to.be.undefined
 
@@ -73,7 +84,7 @@ describe('sylph', function(){
     });
 
     it('should accept an unoptimized png and return an optimized png', function(done){
-      sylph.detect(testPNGPath, function(err, type){
+      sylph.detectType(testPNGPath, function(err, type){
         sylph.smush(testPNGStream, type, function(err, result){
           expect(err).to.be.undefined
 
