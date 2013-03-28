@@ -1,7 +1,7 @@
 Sylph
 =====
 
-v0.0.2
+v0.0.3
 Image optimization, processing, and spriting library.
 
 Example
