@@ -45,7 +45,7 @@ describe('sylph', function(){
       });
     })
 
-    it('should error if no file type is specified', function(done){
+    it('should load the file type if no file type is specified', function(done){
       sylph.smush(testJPEGFile, undefined, function(err, callback){
         expect(err).to.equal("No file type specified!");
         done();
